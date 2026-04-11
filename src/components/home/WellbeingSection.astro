@@ -1,4 +1,6 @@
 ---
+import { getNavHref } from '../../utils/nav';
+
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -35,7 +37,7 @@ const base = import.meta.env.BASE_URL;
           <span>On vient seule, on repart avec des liens.</span>
         </li>
       </ul>
-      <a href={`${base}a-propos/`} class="btn btn--ghost">En savoir plus sur Masoda</a>
+      <a href={getNavHref('a-propos', base)} class="btn btn--ghost">En savoir plus sur Masoda</a>
     </div>
   </div>
 </section>

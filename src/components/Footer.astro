@@ -1,4 +1,6 @@
 ---
+import { getNavHref } from '../utils/nav';
+
 const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 ---
@@ -16,10 +18,10 @@ const year = new Date().getFullYear();
       <div class="footer__col">
         <h4 class="footer__heading">Navigation</h4>
         <ul class="footer__links">
-          <li><a href={base}>Accueil</a></li>
-          <li><a href={`${base}ateliers/`}>Ateliers</a></li>
-          <li><a href={`${base}boutique/`}>Boutique</a></li>
-          <li><a href={`${base}journal/`}>Journal</a></li>
+          <li><a href={getNavHref('', base)}>Accueil</a></li>
+          <li><a href={getNavHref('ateliers', base)}>Ateliers</a></li>
+          <li><a href={getNavHref('boutique', base)}>Boutique</a></li>
+          <li><a href={getNavHref('journal', base)}>Journal</a></li>
         </ul>
       </div>
 
@@ -27,8 +29,8 @@ const year = new Date().getFullYear();
       <div class="footer__col">
         <h4 class="footer__heading">En savoir plus</h4>
         <ul class="footer__links">
-          <li><a href={`${base}a-propos/`}>À propos</a></li>
-          <li><a href={`${base}contact/`}>Contact</a></li>
+          <li><a href={getNavHref('a-propos', base)}>À propos</a></li>
+          <li><a href={getNavHref('contact', base)}>Contact</a></li>
         </ul>
       </div>
 

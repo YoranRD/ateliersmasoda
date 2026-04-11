@@ -1,5 +1,7 @@
 ---
+import { getNavHref } from '../utils/nav';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -82,7 +84,7 @@ const base = import.meta.env.BASE_URL;
         </p>
         <div class="vision-block__actions">
           <a href="https://www.billetweb.fr/paint-and-jam-with-love" target="_blank" rel="noopener" class="btn btn--primary">Réserver un atelier</a>
-          <a href={`${base}contact/`} class="btn btn--outline">Nous contacter</a>
+          <a href={getNavHref('contact', base)} class="btn btn--outline">Nous contacter</a>
         </div>
       </div>
     </div>
