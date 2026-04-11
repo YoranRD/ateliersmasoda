@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articles = [
+  {
+    tag: 'Bien-être',
+    title: '5 rituels du matin pour commencer la journée en douceur',
+    excerpt: 'Des gestes simples, inspirés de traditions afro-caribéennes, pour ancrer votre matinée dans la sérénité.',
+    date: 'Bientôt',
+  },
+  {
+    tag: 'Confiance en soi',
+    title: 'Oser créer sans jugement : le pouvoir de l\'art intuitif',
+    excerpt: 'Pourquoi peindre sans règle peut transformer votre rapport à vous-même et libérer votre expression.',
+    date: 'Bientôt',
+  },
+  {
+    tag: 'Nutrition',
+    title: 'Les plantes anti-stress de la pharmacopée caribéenne',
+    excerpt: 'Tilleul pays, atoumo, citronnelle : redécouvrir les trésors végétaux de nos îles pour mieux vivre.',
+    date: 'Bientôt',
+  },
+  {
+    tag: 'Motivation',
+    title: 'Se donner la permission de ralentir',
+    excerpt: 'Dans un monde qui pousse à la performance, reprendre le droit de ne rien faire est un acte de soin.',
+    date: 'Bientôt',
+  },
+  {
+    tag: 'Partage',
+    title: 'Pourquoi les cercles de femmes nous font du bien',
+    excerpt: 'La force du collectif féminin : un espace de parole, d\'écoute et de soutien qui transforme.',
+    date: 'Bientôt',
+  },
+  {
+    tag: 'Arts',
+    title: 'L\'art caribéen contemporain : 5 artistes à suivre',
+    excerpt: 'Des créateurs qui réinventent l\'esthétique caribéenne avec audace et finesse.',
+    date: 'Bientôt',
+  },
+];
+---
+
+<BaseLayout title="Journal — Les Ateliers Masoda" description="Inspirations, bien-être et culture afro-caribéenne. Articles et ressources pour prendre soin de soi autrement.">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero__content reveal">
+        <span class="overline">Journal</span>
+        <h1 class="heading-1">Inspirations & ressources</h1>
+        <p class="subtitle">Des articles pour nourrir le corps et l'esprit. Bien-être, créativité, culture et partage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="journal-grid">
+        {articles.map((article, i) => (
+          <article class={`card reveal reveal-delay-${(i % 4) + 1}`}>
+            <div class="card__image">
+              <span class="journal-placeholder">✎</span>
+            </div>
+            <div class="card__body">
+              <div class="journal-meta">
+                <span class="card__tag">{article.tag}</span>
+                <span class="journal-date">{article.date}</span>
+              </div>
+              <h2 class="card__title">{article.title}</h2>
+              <p class="card__text">{article.excerpt}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section journal-cta-section">
+    <div class="container container--narrow">
+      <div class="journal-cta reveal">
+        <h2 class="heading-4">Le journal arrive bientôt.</h2>
+        <p>Les premiers articles sont en préparation. Suivez-nous sur les réseaux pour ne rien manquer.</p>
+        <a href="https://www.instagram.com/lesateliersmassoda/" target="_blank" rel="noopener" class="btn btn--primary">
+          Suivre sur Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-16) var(--space-12);
+    background: var(--color-bg);
+  }
+
+  .page-hero__content {
+    max-width: 600px;
+  }
+
+  .page-hero__content .overline {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .page-hero__content h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .journal-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .journal-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--text-3xl);
+    color: var(--color-warm);
+    opacity: 0.3;
+  }
+
+  .card__image {
+    position: relative;
+    background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-warm));
+  }
+
+  .journal-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .journal-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .journal-cta-section {
+    background: var(--color-bg-light);
+  }
+
+  .journal-cta {
+    text-align: center;
+  }
+
+  .journal-cta h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .journal-cta p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .journal-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-block: var(--space-24) var(--space-16);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .journal-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

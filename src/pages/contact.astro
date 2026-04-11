@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact — Les Ateliers Masoda" description="Contactez Les Ateliers Masoda pour toute question, collaboration ou événement sur mesure.">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero__content reveal">
+        <span class="overline">Contact</span>
+        <h1 class="heading-1">Parlons ensemble</h1>
+        <p class="subtitle">Une question, une idée de collaboration ou envie d'un atelier sur mesure ? Écrivez-nous.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <!-- Contact info -->
+      <div class="contact-info reveal">
+        <div class="contact-info__block">
+          <h2 class="heading-4">Collaborations</h2>
+          <p>Marques, créateurs, espaces : si nos univers se rejoignent, construisons quelque chose ensemble.</p>
+        </div>
+
+        <div class="contact-info__block">
+          <h2 class="heading-4">Événements privés</h2>
+          <p>Anniversaires, EVJF, team building : créez une expérience Masoda à votre image.</p>
+        </div>
+
+        <div class="contact-info__block">
+          <h2 class="heading-4">Nous retrouver</h2>
+          <ul class="contact-info__links">
+            <li><a href="https://www.instagram.com/lesateliersmassoda/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@lesateliersmassoda1" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://fr.pinterest.com/barbandchill/" target="_blank" rel="noopener">Pinterest</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="contact-form-wrap reveal reveal-delay-1">
+        <form class="contact-form" name="contact" data-netlify="true" action="#">
+          <div class="contact-form__group">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" placeholder="Votre nom" required />
+          </div>
+          <div class="contact-form__group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="votre@email.com" required />
+          </div>
+          <div class="contact-form__group">
+            <label for="subject">Sujet</label>
+            <select id="subject" name="subject" required>
+              <option value="" disabled selected>Choisir un sujet</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="evenement">Événement privé</option>
+              <option value="presse">Presse</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="contact-form__group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary contact-form__submit">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-16) var(--space-12);
+    background: var(--color-bg);
+  }
+
+  .page-hero__content {
+    max-width: 600px;
+  }
+
+  .page-hero__content .overline {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .page-hero__content h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .contact-info__block h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .contact-info__block p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    font-size: var(--text-sm);
+  }
+
+  .contact-info__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .contact-info__links a {
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+    transition: color var(--duration-fast);
+  }
+
+  .contact-info__links a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  /* Form */
+  .contact-form-wrap {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    border: 1px solid var(--color-border);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .contact-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .contact-form__group label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .contact-form__group input,
+  .contact-form__group select,
+  .contact-form__group textarea {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-white);
+    color: var(--color-text);
+    transition: border-color var(--duration-fast);
+  }
+
+  .contact-form__group input:focus,
+  .contact-form__group select:focus,
+  .contact-form__group textarea:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px rgba(68, 82, 199, 0.1);
+  }
+
+  .contact-form__group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .contact-form__submit {
+    align-self: flex-start;
+    margin-top: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-block: var(--space-24) var(--space-16);
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-16);
+    }
+  }
+</style>

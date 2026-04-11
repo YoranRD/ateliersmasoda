@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="À propos — Les Ateliers Masoda" description="Découvrez l'histoire, les valeurs et l'univers de Masoda. Créativité, bien-être et culture afro-caribéenne.">
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero__content reveal">
+        <span class="overline">À propos</span>
+        <h1 class="heading-1">L'histoire derrière Masoda</h1>
+        <p class="subtitle">Un projet né de l'envie de créer un espace chaleureux où créativité, bien-être et culture se rencontrent.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container about-story">
+      <div class="about-story__visual reveal">
+        <div class="about-story__frame">
+          <span class="about-story__placeholder">◯</span>
+        </div>
+      </div>
+      <div class="about-story__content reveal reveal-delay-1">
+        <h2 class="heading-4">Masoda, c'est quoi ?</h2>
+        <p>
+          Les Ateliers Masoda sont nés d'une envie simple : créer un espace où l'on peut
+          souffler, créer et se retrouver. Un lieu qui célèbre la culture afro-caribéenne
+          à travers des expériences de bien-être et de créativité, sans prétention mais avec exigence.
+        </p>
+        <p>
+          Ici, on ne cherche pas la performance. On cherche la connexion — à soi, aux autres,
+          à ses racines. Que ce soit à travers la peinture, les rituels de soin ou simplement
+          un moment de partage autour d'une tisane, chaque atelier est pensé pour faire du bien.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section values-section">
+    <div class="container">
+      <h2 class="heading-3 values-section__title reveal">Ce qui nous guide</h2>
+      <div class="values-grid">
+        <div class="value-card reveal reveal-delay-1">
+          <span class="value-card__icon">✦</span>
+          <h3 class="value-card__title">Authenticité</h3>
+          <p>Des expériences ancrées dans la culture, pas dans les tendances éphémères.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <span class="value-card__icon" style="color: var(--color-coral);">✦</span>
+          <h3 class="value-card__title">Bienveillance</h3>
+          <p>Un espace sans jugement, où chacune avance à son rythme.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <span class="value-card__icon" style="color: var(--color-brand);">✦</span>
+          <h3 class="value-card__title">Qualité</h3>
+          <p>Des ateliers soignés, des matériaux choisis, une attention portée à chaque détail.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-4">
+          <span class="value-card__icon" style="color: var(--color-warm);">✦</span>
+          <h3 class="value-card__title">Communauté</h3>
+          <p>On vient pour l'atelier, on revient pour les liens qu'on y crée.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="vision-block reveal">
+        <h2 class="heading-3">Notre vision</h2>
+        <p class="vision-block__text">
+          Masoda aspire à devenir un repère pour toutes celles qui cherchent un espace
+          de bien-être sincère, ancré dans la culture afro-caribéenne. Un lieu où la créativité
+          est un outil de reconnexion, où le partage est une force, et où chaque femme
+          peut rayonner à sa manière.
+        </p>
+        <div class="vision-block__actions">
+          <a href="https://www.billetweb.fr/paint-and-jam-with-love" target="_blank" rel="noopener" class="btn btn--primary">Réserver un atelier</a>
+          <a href={`${base}contact/`} class="btn btn--outline">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-16) var(--space-12);
+    background: var(--color-bg);
+  }
+
+  .page-hero__content {
+    max-width: 650px;
+  }
+
+  .page-hero__content .overline {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .page-hero__content h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .about-story {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .about-story__frame {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-warm));
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  .about-story__placeholder {
+    font-size: 4rem;
+    color: var(--color-accent);
+    opacity: 0.3;
+  }
+
+  .about-story__content h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .about-story__content p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-5);
+  }
+
+  /* Values */
+  .values-section {
+    background: var(--color-bg-light);
+  }
+
+  .values-section__title {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .value-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    border: 1px solid var(--color-border);
+  }
+
+  .value-card__icon {
+    font-size: var(--text-2xl);
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .value-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .value-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: var(--leading-normal);
+  }
+
+  /* Vision */
+  .vision-block {
+    text-align: center;
+  }
+
+  .vision-block h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .vision-block__text {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  .vision-block__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-block: var(--space-24) var(--space-16);
+    }
+
+    .about-story {
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-16);
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .values-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

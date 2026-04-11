@@ -1,0 +1,109 @@
+---
+const partners = [
+  'Partenaire 1',
+  'Partenaire 2',
+  'Partenaire 3',
+  'Partenaire 4',
+];
+---
+
+<section class="credibility section">
+  <div class="container">
+    <div class="credibility__header reveal">
+      <span class="overline">Collaborations</span>
+      <h2 class="heading-3">Ils nous font confiance</h2>
+      <p class="subtitle">
+        Masoda collabore avec des marques, créateurs et espaces qui partagent nos valeurs.
+      </p>
+    </div>
+
+    <div class="credibility__logos reveal reveal-delay-1">
+      {partners.map(partner => (
+        <div class="credibility__logo-item">
+          <span>{partner}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="credibility__quote reveal reveal-delay-2">
+      <blockquote>
+        <p>« Un moment hors du temps. On repart ressourcée, inspirée, et avec l'envie de revenir. »</p>
+        <footer>
+          <cite>— Une participante</cite>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<style>
+  .credibility {
+    background: var(--color-bg-warm);
+  }
+
+  .credibility__header {
+    text-align: center;
+    max-width: 520px;
+    margin-inline: auto;
+    margin-bottom: var(--space-12);
+  }
+
+  .credibility__header .overline {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .credibility__header h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .credibility__logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    max-width: 700px;
+    margin-inline: auto;
+    margin-bottom: var(--space-12);
+  }
+
+  .credibility__logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+  }
+
+  .credibility__quote {
+    max-width: 600px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .credibility__quote blockquote p {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+    font-style: italic;
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .credibility__quote cite {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 768px) {
+    .credibility__logos {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

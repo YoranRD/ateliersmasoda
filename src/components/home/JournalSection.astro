@@ -1,0 +1,105 @@
+---
+const base = import.meta.env.BASE_URL;
+
+const articles = [
+  {
+    tag: 'Bien-être',
+    title: '5 rituels du matin pour commencer la journée en douceur',
+    excerpt: 'Des gestes simples, inspirés de traditions afro-caribéennes, pour ancrer votre matinée.',
+  },
+  {
+    tag: 'Confiance en soi',
+    title: 'Oser créer sans jugement : le pouvoir de l\'art intuitif',
+    excerpt: 'Pourquoi peindre sans règle peut transformer votre rapport à vous-même.',
+  },
+  {
+    tag: 'Nutrition',
+    title: 'Les plantes anti-stress de la pharmacopée caribéenne',
+    excerpt: 'Tilleul pays, atoumo, citronnelle : redécouvrir les trésors végétaux de nos îles.',
+  },
+];
+---
+
+<section class="journal-section section">
+  <div class="container">
+    <div class="journal-section__header reveal">
+      <div class="journal-section__header-text">
+        <span class="overline">Journal</span>
+        <h2 class="heading-3">Inspirations & ressources</h2>
+      </div>
+      <a href={`${base}journal/`} class="btn btn--ghost">Voir tous les articles</a>
+    </div>
+
+    <div class="journal-section__grid">
+      {articles.map((article, i) => (
+        <article class={`card reveal reveal-delay-${i + 1}`}>
+          <div class="card__image">
+            <span class="journal-section__placeholder-icon">✎</span>
+          </div>
+          <div class="card__body">
+            <span class="card__tag">{article.tag}</span>
+            <h3 class="card__title">{article.title}</h3>
+            <p class="card__text">{article.excerpt}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .journal-section {
+    background: var(--color-bg);
+  }
+
+  .journal-section__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .journal-section__header .overline {
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  .journal-section__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .journal-section__placeholder-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--text-3xl);
+    color: var(--color-warm);
+    opacity: 0.3;
+  }
+
+  .card__image {
+    position: relative;
+    background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-warm));
+  }
+
+  @media (min-width: 640px) {
+    .journal-section__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .journal-section__header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .journal-section__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
