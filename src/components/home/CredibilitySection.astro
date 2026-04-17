@@ -1,107 +1,192 @@
 ---
-const partners = [
-  'Partenaire 1',
-  'Partenaire 2',
-  'Partenaire 3',
-  'Partenaire 4',
+const stats = [
+  { value: '12+', label: 'Ateliers organisés' },
+  { value: '200+', label: 'Participantes comblées' },
+  { value: '4', label: 'Villes' },
 ];
+
+const partners = ['Partenaire 1', 'Partenaire 2', 'Partenaire 3', 'Partenaire 4'];
 ---
 
 <section class="credibility section">
   <div class="container">
-    <div class="credibility__header reveal">
-      <span class="overline">Collaborations</span>
-      <h2 class="heading-3">Ils nous font confiance</h2>
-      <p class="subtitle">
-        Masoda collabore avec des marques, créateurs et espaces qui partagent nos valeurs.
-      </p>
-    </div>
 
-    <div class="credibility__logos reveal reveal-delay-1">
-      {partners.map(partner => (
-        <div class="credibility__logo-item">
-          <span>{partner}</span>
+    <!-- Stats strip -->
+    <div class="credibility__stats reveal">
+      {stats.map((stat, i) => (
+        <div class="credibility__stat">
+          <span class="credibility__stat-value">{stat.value}</span>
+          <span class="credibility__stat-label">{stat.label}</span>
         </div>
       ))}
     </div>
 
-    <div class="credibility__quote reveal reveal-delay-2">
-      <blockquote>
-        <p>« Un moment hors du temps. On repart ressourcée, inspirée, et avec l'envie de revenir. »</p>
+    <!-- Testimonial quote block -->
+    <div class="credibility__quote-wrap reveal reveal-delay-1">
+      <div class="credibility__quote-mark" aria-hidden="true">"</div>
+      <blockquote class="credibility__quote">
+        <p>Un moment hors du temps. On repart ressourcée, inspirée, et avec l'envie de revenir.</p>
         <footer>
-          <cite>— Une participante</cite>
+          <cite>— Une participante, atelier Paint &amp; Jam</cite>
         </footer>
       </blockquote>
     </div>
+
+    <!-- Partners -->
+    <div class="credibility__partners reveal reveal-delay-2">
+      <span class="credibility__partners-label">Collaborations &amp; partenaires</span>
+      <div class="credibility__logos">
+        {partners.map(p => (
+          <div class="credibility__logo-item"><span>{p}</span></div>
+        ))}
+      </div>
+    </div>
+
   </div>
 </section>
 
 <style>
   .credibility {
-    background: var(--color-bg-warm);
+    background: var(--color-bg-light);
+    overflow: hidden;
   }
 
-  .credibility__header {
+  /* ── Stats strip ── */
+  .credibility__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: var(--space-16);
+  }
+
+  .credibility__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    max-width: 520px;
+    padding: var(--space-10) var(--space-6);
+    position: relative;
+  }
+
+  .credibility__stat + .credibility__stat::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .credibility__stat-value {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+    line-height: 1;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .credibility__stat-label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Quote block ── */
+  .credibility__quote-wrap {
+    position: relative;
+    max-width: 680px;
     margin-inline: auto;
-    margin-bottom: var(--space-12);
+    text-align: center;
+    padding: var(--space-8) var(--space-6);
+    margin-bottom: var(--space-16);
   }
 
-  .credibility__header .overline {
+  .credibility__quote-mark {
+    font-family: var(--font-heading);
+    font-size: 10rem;
+    line-height: 0.55;
+    color: var(--color-accent);
+    opacity: 0.12;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .credibility__quote p {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-xl), 2.8vw, var(--text-3xl));
+    font-style: italic;
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+    position: relative;
+  }
+
+  .credibility__quote cite {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Partners ── */
+  .credibility__partners {
+    text-align: center;
+  }
+
+  .credibility__partners-label {
     display: block;
-    margin-bottom: var(--space-3);
-  }
-
-  .credibility__header h2 {
-    margin-bottom: var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
   }
 
   .credibility__logos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    max-width: 700px;
+    gap: var(--space-4);
+    max-width: 580px;
     margin-inline: auto;
-    margin-bottom: var(--space-12);
   }
 
   .credibility__logo-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
+    height: 64px;
     border-radius: var(--radius-md);
-    background: var(--color-surface);
+    background: var(--color-surface-warm);
     border: 1px solid var(--color-border);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-text-muted);
     font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    transition: border-color var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
   }
 
-  .credibility__quote {
-    max-width: 600px;
-    margin-inline: auto;
-    text-align: center;
+  .credibility__logo-item:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
   }
 
-  .credibility__quote blockquote p {
-    font-family: var(--font-heading);
-    font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
-    font-style: italic;
-    line-height: var(--leading-snug);
-    color: var(--color-text);
-    margin-bottom: var(--space-4);
-  }
-
-  .credibility__quote cite {
-    font-family: var(--font-body);
-    font-style: normal;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-  }
-
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .credibility__logos {
       grid-template-columns: repeat(4, 1fr);
     }

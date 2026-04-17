@@ -8,44 +8,72 @@ const articles = [
     tag: 'Bien-être',
     title: '5 rituels du matin pour commencer la journée en douceur',
     excerpt: 'Des gestes simples, inspirés de traditions afro-caribéennes, pour ancrer votre matinée.',
+    featured: true,
   },
   {
     tag: 'Confiance en soi',
-    title: 'Oser créer sans jugement : le pouvoir de l\'art intuitif',
+    title: "Oser créer sans jugement : le pouvoir de l'art intuitif",
     excerpt: 'Pourquoi peindre sans règle peut transformer votre rapport à vous-même.',
+    featured: false,
   },
   {
     tag: 'Nutrition',
     title: 'Les plantes anti-stress de la pharmacopée caribéenne',
     excerpt: 'Tilleul pays, atoumo, citronnelle : redécouvrir les trésors végétaux de nos îles.',
+    featured: false,
   },
 ];
+
+const featured = articles[0];
+const secondary = articles.slice(1);
 ---
 
 <section class="journal-section section">
   <div class="container">
+
     <div class="journal-section__header reveal">
-      <div class="journal-section__header-text">
+      <div>
         <span class="overline">Journal</span>
-        <h2 class="heading-3">Inspirations & ressources</h2>
+        <h2 class="heading-2">Inspirations &amp; ressources</h2>
       </div>
-      <a href={getNavHref('journal', base)} class="btn btn--ghost">Voir tous les articles</a>
+      <a href={getNavHref('journal', base)} class="btn btn--ghost journal-section__all">
+        Voir tous les articles
+      </a>
     </div>
 
-    <div class="journal-section__grid">
-      {articles.map((article, i) => (
-        <article class={`card reveal reveal-delay-${i + 1}`}>
-          <div class="card__image">
-            <span class="journal-section__placeholder-icon">✎</span>
+    <!-- Featured article -->
+    <article class="journal-featured reveal">
+      <div class="journal-featured__image">
+        <span class="journal-featured__icon">✎</span>
+        <div class="journal-featured__image-label">Article à la une</div>
+      </div>
+      <div class="journal-featured__body">
+        <span class="journal-featured__tag">{featured.tag}</span>
+        <h3 class="journal-featured__title">{featured.title}</h3>
+        <p class="journal-featured__excerpt">{featured.excerpt}</p>
+        <a href={getNavHref('journal', base)} class="btn btn--ghost">Lire l'article</a>
+      </div>
+    </article>
+
+    <!-- Secondary articles -->
+    <div class="journal-secondary">
+      {secondary.map((article, i) => (
+        <article class={`journal-card reveal reveal-delay-${i + 1}`}>
+          <div class="journal-card__image">
+            <span class="journal-card__icon">✎</span>
           </div>
-          <div class="card__body">
-            <span class="card__tag">{article.tag}</span>
-            <h3 class="card__title">{article.title}</h3>
-            <p class="card__text">{article.excerpt}</p>
+          <div class="journal-card__body">
+            <span class="journal-card__tag">{article.tag}</span>
+            <h3 class="journal-card__title">{article.title}</h3>
+            <p class="journal-card__excerpt">{article.excerpt}</p>
+          </div>
+          <div class="journal-card__footer">
+            <a href={getNavHref('journal', base)} class="btn btn--ghost">Lire l'article</a>
           </div>
         </article>
       ))}
     </div>
+
   </div>
 </section>
 
@@ -54,11 +82,12 @@ const articles = [
     background: var(--color-bg);
   }
 
+  /* Header */
   .journal-section__header {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-12);
   }
 
   .journal-section__header .overline {
@@ -66,29 +95,173 @@ const articles = [
     margin-bottom: var(--space-2);
   }
 
-  .journal-section__grid {
+  /* ── Featured article ── */
+  .journal-featured {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-8);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-8);
+    transition: box-shadow var(--duration-normal) var(--ease-out),
+                transform var(--duration-normal) var(--ease-out);
   }
 
-  .journal-section__placeholder-icon {
+  .journal-featured:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+  }
+
+  .journal-featured__image {
+    position: relative;
+    aspect-ratio: 16 / 7;
+    background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-bg-warm) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .journal-featured__icon {
+    font-size: 4rem;
+    color: var(--color-warm);
+    opacity: 0.25;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .journal-featured:hover .journal-featured__icon {
+    transform: scale(1.05) rotate(-3deg);
+  }
+
+  .journal-featured__image-label {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: var(--space-5);
+    left: var(--space-5);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-warm);
+    background: var(--color-surface);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+  }
+
+  .journal-featured__body {
+    padding: var(--space-8);
+  }
+
+  .journal-featured__tag {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-warm);
+    margin-bottom: var(--space-4);
+  }
+
+  .journal-featured__title {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-xl), 2.5vw, var(--text-3xl));
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .journal-featured__excerpt {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    line-height: var(--leading-normal);
+    max-width: 520px;
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── Secondary articles ── */
+  .journal-secondary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .journal-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .journal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .journal-card__image {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-bg-warm) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .journal-card__icon {
     font-size: var(--text-3xl);
     color: var(--color-warm);
-    opacity: 0.3;
+    opacity: 0.25;
+    transition: transform var(--duration-slow) var(--ease-out);
   }
 
-  .card__image {
-    position: relative;
-    background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-warm));
+  .journal-card:hover .journal-card__icon {
+    transform: scale(1.1) rotate(-4deg);
   }
 
+  .journal-card__body {
+    padding: var(--space-6);
+    flex: 1;
+  }
+
+  .journal-card__tag {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-warm);
+    margin-bottom: var(--space-2);
+  }
+
+  .journal-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+  }
+
+  .journal-card__excerpt {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: var(--leading-normal);
+  }
+
+  .journal-card__footer {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Responsive */
   @media (min-width: 640px) {
-    .journal-section__grid {
+    .journal-secondary {
       grid-template-columns: repeat(2, 1fr);
     }
   }
@@ -100,8 +273,13 @@ const articles = [
       justify-content: space-between;
     }
 
-    .journal-section__grid {
-      grid-template-columns: repeat(3, 1fr);
+    .journal-featured {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .journal-featured__image {
+      aspect-ratio: auto;
+      min-height: 300px;
     }
   }
 </style>
