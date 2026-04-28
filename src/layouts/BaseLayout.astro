@@ -6,10 +6,38 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description = 'Les Ateliers Masoda — Ateliers créatifs, bien-être et lifestyle afro-caribéen.' } = Astro.props;
+const {
+  title,
+  description = 'Les Ateliers Masoda — Ateliers créatifs, bien-être et lifestyle afro-caribéen.',
+  ogImage,
+} = Astro.props;
+
 const base = import.meta.env.BASE_URL;
+// base may or may not have a trailing slash depending on Astro version — normalise once
+const basePath = base.endsWith('/') ? base : `${base}/`;
+const canonicalURL = Astro.url.href.replace(/\/?$/, '/');
+
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://yoranrd.github.io';
+const ogImagePath = ogImage ?? `${basePath}brand/og-masoda.png`;
+const absoluteOgImage = ogImagePath.startsWith('http')
+  ? ogImagePath
+  : `${siteOrigin}${ogImagePath}`;
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Les Ateliers Masoda',
+  url: `${siteOrigin}${basePath}`,
+  logo: `${siteOrigin}${basePath}brand/logo_halo.png`,
+  sameAs: [
+    'https://www.instagram.com/lesateliersmassoda/',
+    'https://www.tiktok.com/@lesateliersmassoda1',
+    'https://fr.pinterest.com/barbandchill/',
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -19,13 +47,37 @@ const base = import.meta.env.BASE_URL;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <title>{title}</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href={canonicalURL} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content="Les Ateliers Masoda" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:image" content={absoluteOgImage} />
+  <meta property="og:image:alt" content="Les Ateliers Masoda — visuel de marque" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={absoluteOgImage} />
+  <link rel="icon" type="image/svg+xml" href={`${basePath}favicon.svg`} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+
+  {/*
+    Analytics placeholder — intentionally disabled.
+    To enable later, drop in a privacy-friendly provider snippet here.
+    Recommended options: Plausible, Umami, or Cloudflare Web Analytics.
+    Example (Plausible):
+    <script defer data-domain="yoranrd.github.io/ateliersmasoda" src="https://plausible.io/js/script.js"></script>
+  */}
 </head>
 <body>
   <Header />
   <main>
+    <div class="page-accent-line" aria-hidden="true"></div>
     <slot />
   </main>
   <Footer />

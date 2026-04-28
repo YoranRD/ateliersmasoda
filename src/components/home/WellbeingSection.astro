@@ -2,15 +2,22 @@
 import { getNavHref } from '../../utils/nav';
 
 const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
+const wellbeingImage = `${basePath}images/home/bien-etre-lifestyle.png`;
 ---
 
 <section class="wellbeing section">
   <div class="container wellbeing__inner">
     <div class="wellbeing__visual reveal">
       <div class="wellbeing__image-frame">
-        <div class="wellbeing__placeholder">
-          <span class="wellbeing__icon">◯</span>
-        </div>
+        <img
+          src={wellbeingImage}
+          alt="Univers bien-être & lifestyle Masoda"
+          class="wellbeing__image"
+          loading="lazy"
+          width="800"
+          height="1066"
+        />
       </div>
       <div class="wellbeing__accent-dot"></div>
     </div>
@@ -65,23 +72,16 @@ const base = import.meta.env.BASE_URL;
     max-width: 400px;
     aspect-ratio: 3 / 4;
     border-radius: var(--radius-xl);
-    background: linear-gradient(160deg, var(--color-surface-warm), var(--color-bg-warm));
+    overflow: hidden;
     border: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: var(--shadow-sm);
   }
 
-  .wellbeing__placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .wellbeing__icon {
-    font-size: 4rem;
-    color: var(--color-accent);
-    opacity: 0.3;
+  .wellbeing__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .wellbeing__accent-dot {

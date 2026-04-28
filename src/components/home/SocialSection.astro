@@ -1,4 +1,8 @@
 ---
+const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
+const communityImage = `${basePath}images/home/communaute-masoda.png`;
+
 const socials = [
   { name: 'Instagram', url: 'https://www.instagram.com/lesateliersmassoda/', handle: '@lesateliersmassoda', icon: '◉' },
   { name: 'TikTok', url: 'https://www.tiktok.com/@lesateliersmassoda1', handle: '@lesateliersmassoda1', icon: '▶' },
@@ -7,11 +11,24 @@ const socials = [
 ---
 
 <section class="social section">
-  <div class="container">
-    <div class="social__inner reveal">
+  <div class="container social__grid">
+    <div class="social__visual reveal">
+      <div class="social__image-frame">
+        <img
+          src={communityImage}
+          alt="La communauté Masoda — moments de partage et de complicité"
+          class="social__image"
+          loading="lazy"
+          width="800"
+          height="1066"
+        />
+      </div>
+    </div>
+
+    <div class="social__inner reveal reveal-delay-1">
       <span class="overline">Communauté</span>
       <h2 class="heading-3">Rejoignez l'univers Masoda</h2>
-      <p class="subtitle">Inspirations, coulisses et moments de partage au quotidien.</p>
+      <p class="subtitle">Coulisses d'ateliers, inspirations et rendez-vous à venir : suivez-nous et faites partie de la communauté.</p>
 
       <div class="social__links">
         {socials.map(social => (
@@ -34,10 +51,37 @@ const socials = [
     background: var(--color-bg-light);
   }
 
+  .social__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .social__visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .social__image-frame {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .social__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .social__inner {
-    text-align: center;
     max-width: 600px;
-    margin-inline: auto;
   }
 
   .social__inner .overline {
@@ -50,7 +94,14 @@ const socials = [
   }
 
   .social__inner .subtitle {
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .social__grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: var(--space-16);
+    }
   }
 
   .social__links {

@@ -1,42 +1,57 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
+
 const articles = [
   {
     tag: 'Bien-être',
     title: '5 rituels du matin pour commencer la journée en douceur',
-    excerpt: 'Des gestes simples, inspirés de traditions afro-caribéennes, pour ancrer votre matinée dans la sérénité.',
-    date: 'Bientôt',
+    excerpt: 'Des gestes simples, inspirés des traditions afro-caribéennes, pour ancrer votre matinée dans la sérénité.',
+    date: 'À paraître',
+    image: `${basePath}images/home/bien-etre-lifestyle.png`,
+    alt: 'Rituels bien-être Masoda',
   },
   {
-    tag: 'Confiance en soi',
+    tag: 'Créativité',
     title: 'Oser créer sans jugement : le pouvoir de l\'art intuitif',
     excerpt: 'Pourquoi peindre sans règle peut transformer votre rapport à vous-même et libérer votre expression.',
-    date: 'Bientôt',
+    date: 'En écriture',
+    image: `${basePath}images/home/atelier-paint-jam.png`,
+    alt: 'Atelier Paint & Jam — peinture intuitive',
   },
   {
-    tag: 'Nutrition',
-    title: 'Les plantes anti-stress de la pharmacopée caribéenne',
-    excerpt: 'Tilleul pays, atoumo, citronnelle : redécouvrir les trésors végétaux de nos îles pour mieux vivre.',
-    date: 'Bientôt',
+    tag: 'Plantes',
+    title: 'Les plantes africaines anti-stress à redécouvrir',
+    excerpt: 'Tisanes, racines et infusions : les trésors végétaux du continent et des îles, à intégrer au quotidien.',
+    date: 'En préparation',
+    image: `${basePath}images/shop/boutique-plantes.png`,
+    alt: 'Plantes & infusions afro-diététique',
   },
   {
-    tag: 'Motivation',
-    title: 'Se donner la permission de ralentir',
-    excerpt: 'Dans un monde qui pousse à la performance, reprendre le droit de ne rien faire est un acte de soin.',
-    date: 'Bientôt',
+    tag: 'Artisanat',
+    title: 'Baya : l\'histoire des perles de taille',
+    excerpt: 'Symbole de féminité et d\'ancrage, la baya raconte un héritage transmis de femme à femme.',
+    date: 'À paraître',
+    image: `${basePath}images/home/atelier-baya.png`,
+    alt: 'Baya — perles de taille traditionnelles',
   },
   {
-    tag: 'Partage',
-    title: 'Pourquoi les cercles de femmes nous font du bien',
+    tag: 'Communauté',
+    title: 'Pourquoi les cercles de femmes nous font tant de bien',
     excerpt: 'La force du collectif féminin : un espace de parole, d\'écoute et de soutien qui transforme.',
-    date: 'Bientôt',
+    date: 'En écriture',
+    image: `${basePath}images/home/communaute-masoda.png`,
+    alt: 'Communauté Masoda — moments de partage',
   },
   {
-    tag: 'Arts',
-    title: 'L\'art caribéen contemporain : 5 artistes à suivre',
-    excerpt: 'Des créateurs qui réinventent l\'esthétique caribéenne avec audace et finesse.',
-    date: 'Bientôt',
+    tag: 'Identité',
+    title: 'Masoda, une parole sincère sur le bien-être afro-caribéen',
+    excerpt: 'Comment la fondatrice imagine un espace ancré, exigeant et profondément chaleureux.',
+    date: 'En préparation',
+    image: `${basePath}images/about/fondatrice-masoda.png`,
+    alt: 'Fondatrice des Ateliers Masoda',
   },
 ];
 ---
@@ -48,7 +63,7 @@ const articles = [
       <div class="page-hero__content reveal">
         <span class="overline">Journal</span>
         <h1 class="heading-1">Inspirations & ressources</h1>
-        <p class="subtitle">Des articles pour nourrir le corps et l'esprit. Bien-être, créativité, culture et partage.</p>
+        <p class="subtitle">Le journal Masoda se construit progressivement : voici les premiers sujets qui s'écrivent autour du bien-être, de la créativité et des cultures afro-caribéennes.</p>
       </div>
     </div>
   </section>
@@ -58,8 +73,15 @@ const articles = [
       <div class="journal-grid">
         {articles.map((article, i) => (
           <article class={`card reveal reveal-delay-${(i % 4) + 1}`}>
-            <div class="card__image">
-              <span class="journal-placeholder">✎</span>
+            <div class="journal-image-wrap">
+              <img
+                src={article.image}
+                alt={article.alt}
+                class="journal-image"
+                loading="lazy"
+                width="800"
+                height="600"
+              />
             </div>
             <div class="card__body">
               <div class="journal-meta">
@@ -78,8 +100,8 @@ const articles = [
   <section class="section journal-cta-section">
     <div class="container container--narrow">
       <div class="journal-cta reveal">
-        <h2 class="heading-4">Le journal arrive bientôt.</h2>
-        <p>Les premiers articles sont en préparation. Suivez-nous sur les réseaux pour ne rien manquer.</p>
+        <h2 class="heading-4">Le journal s'écrit en ce moment.</h2>
+        <p>Les premiers articles arrivent par vagues. Suivez-nous sur Instagram pour être prévenue dès leur publication.</p>
         <a href="https://www.instagram.com/lesateliersmassoda/" target="_blank" rel="noopener" class="btn btn--primary">
           Suivre sur Instagram
         </a>
@@ -113,19 +135,28 @@ const articles = [
     gap: var(--space-8);
   }
 
-  .journal-placeholder {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: var(--text-3xl);
-    color: var(--color-warm);
-    opacity: 0.3;
+  .journal-image-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-surface-warm);
   }
 
-  .card__image {
-    position: relative;
-    background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-warm));
+  .journal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Cards are not yet clickable — keep them visually static. */
+  .journal-grid .card {
+    cursor: default;
+  }
+
+  .journal-grid .card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
   }
 
   .journal-meta {

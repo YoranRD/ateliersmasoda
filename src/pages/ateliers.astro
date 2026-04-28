@@ -1,30 +1,47 @@
 ---
 import { getNavHref } from '../utils/nav';
+import { RESERVATION_URL } from '../utils/links';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
 
 const ateliers = [
   {
+    title: 'Baya',
+    tag: 'Artisanat',
+    description: 'Création de baya — ces perles de taille traditionnelles, portées comme une seconde peau. Un atelier intimiste pour renouer avec la féminité, l\'ancrage et la mémoire de nos racines.',
+    details: ['Format atelier', 'Perles & matériel fournis', 'Transmission culturelle', 'Petite collation'],
+    accent: 'var(--color-brand)',
+    ctaHref: RESERVATION_URL,
+    ctaLabel: 'Réserver',
+    ctaExternal: true,
+    image: `${basePath}images/home/atelier-baya.png`,
+    alt: 'Atelier Baya — création de perles de taille traditionnelles',
+  },
+  {
     title: 'Paint & Jam',
     tag: 'Créativité',
-    description: 'Peinture intuitive sur fond de musique afro, soul et jazz. Pas besoin de savoir dessiner — juste l\'envie de lâcher prise et de créer dans une ambiance bienveillante.',
-    details: ['2h30 d\'atelier', 'Matériel fourni', 'Musique live ou DJ set', 'Collation incluse'],
+    description: 'Peinture intuitive sur des sons afro, soul et jazz. Pas besoin de savoir dessiner — juste l\'envie de lâcher prise et de créer dans une ambiance bienveillante.',
+    details: ['Format atelier', 'Toile & matériel fournis', 'Musique live ou DJ set', 'Collation incluse'],
     accent: 'var(--color-accent)',
+    ctaHref: RESERVATION_URL,
+    ctaLabel: 'Réserver',
+    ctaExternal: true,
+    image: `${basePath}images/workshops/paint-jam-banner.png`,
+    alt: 'Atelier Paint & Jam — peinture intuitive en musique',
   },
   {
-    title: 'Self-Care Rituals',
+    title: 'Afro-diététique & plantes africaines',
     tag: 'Bien-être',
-    description: 'Un moment de douceur inspiré des traditions de soin afro-caribéennes. Masques naturels, huiles essentielles, méditation guidée et partage entre femmes.',
-    details: ['2h d\'atelier', 'Produits naturels fournis', 'Méditation guidée', 'Tisane offerte'],
+    description: 'Découverte des plantes africaines, des tisanes et d\'une nutrition douce inspirée des traditions du continent. Un atelier sensoriel pour prendre soin du corps autrement.',
+    details: ['Format atelier', 'Dégustation de tisanes', 'Plantes & infusions', 'Conseils personnalisés'],
     accent: 'var(--color-coral)',
-  },
-  {
-    title: 'Atelier sur mesure',
-    tag: 'Événements',
-    description: 'Anniversaires, EVJF, team building ou événements privés. Créez une expérience Masoda à votre image, avec une formule entièrement personnalisée.',
-    details: ['Durée flexible', 'Formule personnalisée', 'Groupe de 6 à 25 personnes', 'Devis sur demande'],
-    accent: 'var(--color-brand)',
+    ctaHref: RESERVATION_URL,
+    ctaLabel: 'Réserver',
+    ctaExternal: true,
+    image: `${basePath}images/home/bien-etre-lifestyle.png`,
+    alt: 'Atelier afro-diététique — plantes africaines, tisanes et bien-être',
   },
 ];
 ---
@@ -38,7 +55,7 @@ const ateliers = [
         <span class="overline">Ateliers</span>
         <h1 class="heading-1">Créer, partager, se ressourcer.</h1>
         <p class="subtitle">Des ateliers pensés pour se reconnecter à soi à travers la créativité et le bien-être.</p>
-        <a href="https://www.billetweb.fr/paint-and-jam-with-love" target="_blank" rel="noopener" class="btn btn--primary">
+        <a href={RESERVATION_URL} target="_blank" rel="noopener" class="btn btn--primary">
           Réserver maintenant
         </a>
       </div>
@@ -52,7 +69,14 @@ const ateliers = [
         <article class={`atelier-card reveal ${i % 2 === 1 ? 'atelier-card--reverse' : ''}`}>
           <div class="atelier-card__visual">
             <div class="atelier-card__image" style={`background: linear-gradient(135deg, ${atelier.accent}18, ${atelier.accent}06);`}>
-              <span class="atelier-card__icon" style={`color: ${atelier.accent};`}>✦</span>
+              <img
+                src={atelier.image}
+                alt={atelier.alt}
+                class="atelier-card__img"
+                loading="lazy"
+                width="840"
+                height="630"
+              />
             </div>
           </div>
           <div class="atelier-card__content">
@@ -64,12 +88,33 @@ const ateliers = [
                 <li>{d}</li>
               ))}
             </ul>
-            <a href="https://www.billetweb.fr/paint-and-jam-with-love" target="_blank" rel="noopener" class="btn btn--primary">
-              Réserver
+            <a
+              href={atelier.ctaHref}
+              class="btn btn--primary"
+              {...(atelier.ctaExternal ? { target: '_blank', rel: 'noopener' } : {})}
+            >
+              {atelier.ctaLabel}
             </a>
           </div>
         </article>
       ))}
+    </div>
+  </section>
+
+  <!-- Sur mesure / Privatisation -->
+  <section class="section private-section">
+    <div class="container container--narrow">
+      <div class="private-block reveal">
+        <span class="overline">Ateliers privés</span>
+        <h2 class="heading-3">Privatiser un atelier Masoda</h2>
+        <p class="private-block__text">
+          Anniversaire, EVJF, team building, association ou groupe d'amies : nous concevons une expérience Masoda à l'image de votre groupe — Baya, Paint & Jam ou Afro-diététique, en formule sur mesure.
+        </p>
+        <div class="private-block__actions">
+          <a href={getNavHref('contact', base)} class="btn btn--primary">Organiser un atelier sur mesure</a>
+          <a href={getNavHref('contact', base)} class="btn btn--ghost">Demander un devis</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -80,20 +125,36 @@ const ateliers = [
         <h2 class="heading-3 faq-section__title">Questions fréquentes</h2>
         <div class="faq-list">
           <details class="faq-item">
-            <summary>Faut-il avoir de l'expérience en peinture ?</summary>
-            <p>Pas du tout ! Nos ateliers sont pensés pour tous les niveaux. L'important, c'est de passer un bon moment.</p>
+            <summary>Faut-il être expérimentée pour participer ?</summary>
+            <p>Non. Nos ateliers — Baya, Paint &amp; Jam, Afro-diététique — sont accessibles à toutes, même sans expérience préalable. L'idée est de découvrir, créer et passer un bon moment, à votre rythme.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Qui peut venir ?</summary>
+            <p>Masoda est pensé en priorité comme un espace bienveillant d'échange et de création, avec une attention particulière aux femmes qui souhaitent prendre un temps pour elles. Selon les formats, certains ateliers peuvent aussi être mixtes — l'ambiance reste toujours douce et inclusive. Vous pouvez venir seule, entre amies ou en groupe.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Qu'est-ce qui est inclus ?</summary>
+            <p>Tout le matériel nécessaire à l'atelier (perles, toile et peinture, plantes et tisanes selon le format), l'accompagnement, ainsi qu'un petit moment de partage autour d'une collation.</p>
           </details>
           <details class="faq-item">
             <summary>Que dois-je apporter ?</summary>
-            <p>Rien de spécial. Tout le matériel est fourni. Venez simplement avec des vêtements que vous n'avez pas peur de tacher.</p>
+            <p>Rien de spécial. Pour Paint &amp; Jam, prévoyez simplement une tenue confortable que vous ne craignez pas de tacher.</p>
           </details>
           <details class="faq-item">
-            <summary>Peut-on venir entre amies ?</summary>
-            <p>Absolument ! C'est même encouragé. Vous pouvez aussi offrir un atelier en cadeau.</p>
+            <summary>Où ont lieu les ateliers ?</summary>
+            <p>La plupart de nos ateliers se vivent en ce moment chez <a href="https://www.bmkparis.com/bmk-folie-bamako" target="_blank" rel="noopener">BMK Folie-Bamako</a>, 40 Rue Jean-Pierre Timbaud, 75011 Paris — un lieu chaleureux qui partage notre sensibilité afro-caribéenne. Selon les formats, certains ateliers (par exemple un futur atelier céramique) peuvent se tenir ailleurs en région parisienne. L'adresse exacte est toujours confirmée à la réservation.</p>
           </details>
           <details class="faq-item">
-            <summary>Comment se passe l'inscription ?</summary>
-            <p>Les réservations se font via notre plateforme en ligne. Vous recevrez un e-mail de confirmation avec tous les détails pratiques.</p>
+            <summary>Comment réserver ?</summary>
+            <p>Les réservations se font en ligne via notre plateforme dédiée. Vous recevrez un e-mail de confirmation avec les détails pratiques (lieu, horaires, accès).</p>
+          </details>
+          <details class="faq-item">
+            <summary>Puis-je modifier ou annuler ma réservation ?</summary>
+            <p>En cas d'imprévu, écrivez-nous le plus tôt possible via la page <a href={getNavHref('contact', base)}>Contact</a>. Nous regarderons ensemble la meilleure solution selon la date de l'atelier.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Peut-on privatiser un atelier ou commander un événement sur mesure ?</summary>
+            <p>Oui. Anniversaires, EVJF, team building ou événements associatifs : contactez-nous via la page <a href={getNavHref('contact', base)}>Contact</a> pour construire ensemble une formule adaptée à votre groupe.</p>
           </details>
         </div>
       </div>
@@ -147,15 +208,15 @@ const ateliers = [
     max-width: 420px;
     aspect-ratio: 4 / 3;
     border-radius: var(--radius-xl);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
     border: 1px solid var(--color-border);
   }
 
-  .atelier-card__icon {
-    font-size: var(--text-5xl);
-    opacity: 0.4;
+  .atelier-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .atelier-card__content .overline {
@@ -195,9 +256,50 @@ const ateliers = [
     font-weight: var(--weight-bold);
   }
 
+  /* Private / sur mesure */
+  .private-section {
+    background: var(--color-bg-warm);
+  }
+
+  .private-block {
+    text-align: center;
+  }
+
+  .private-block .overline {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .private-block h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .private-block__text {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  .private-block__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+  }
+
   /* FAQ */
   .faq-section {
     background: var(--color-bg-light);
+  }
+
+  .faq-item p a {
+    color: var(--color-accent);
+    font-weight: var(--weight-semibold);
+  }
+
+  .faq-item p a:hover {
+    color: var(--color-accent-hover);
   }
 
   .faq-section__title {

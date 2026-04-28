@@ -2,7 +2,9 @@
 import { getNavHref } from '../utils/nav';
 
 const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
 const year = new Date().getFullYear();
+const logoUrl = `${basePath}brand/logo_halo.png`;
 ---
 
 <footer class="footer">
@@ -10,7 +12,10 @@ const year = new Date().getFullYear();
     <div class="footer__grid">
       <!-- Brand -->
       <div class="footer__brand">
-        <span class="footer__logo">Masoda</span>
+        <div class="footer__brand-row">
+          <img src={logoUrl} alt="Logo Les Ateliers Masoda" class="footer__logo-img" width="48" height="48" loading="lazy" />
+          <span class="footer__logo">Masoda</span>
+        </div>
         <p class="footer__tagline">Ateliers créatifs, bien-être<br/>et lifestyle afro-caribéen.</p>
       </div>
 
@@ -47,6 +52,9 @@ const year = new Date().getFullYear();
 
     <div class="footer__bottom">
       <p>&copy; {year} Les Ateliers Masoda. Tous droits réservés.</p>
+      <ul class="footer__legal">
+        <li><a href={getNavHref('mentions-legales', base)}>Mentions légales</a></li>
+      </ul>
     </div>
   </div>
 </footer>
@@ -65,12 +73,23 @@ const year = new Date().getFullYear();
     margin-bottom: var(--space-12);
   }
 
+  .footer__brand-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .footer__logo-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+
   .footer__logo {
     font-family: var(--font-heading);
     font-size: var(--text-3xl);
     color: var(--color-accent);
-    display: block;
-    margin-bottom: var(--space-3);
   }
 
   .footer__tagline {
@@ -108,11 +127,39 @@ const year = new Date().getFullYear();
   .footer__bottom {
     padding-top: var(--space-8);
     border-top: 1px solid rgba(246, 239, 231, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
   }
 
   .footer__bottom p {
     font-size: var(--text-xs);
     color: rgba(246, 239, 231, 0.4);
+  }
+
+  .footer__legal {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .footer__legal a {
+    font-size: var(--text-xs);
+    color: rgba(246, 239, 231, 0.55);
+    transition: color var(--duration-fast);
+  }
+
+  .footer__legal a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 640px) {
+    .footer__bottom {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 
   @media (min-width: 768px) {

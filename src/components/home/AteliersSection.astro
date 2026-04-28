@@ -1,26 +1,34 @@
 ---
 import { getNavHref } from '../../utils/nav';
+import { RESERVATION_URL } from '../../utils/links';
 
 const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
 
 const ateliers = [
   {
+    tag: 'Artisanat',
+    title: 'Baya',
+    description: 'Création de perles de taille, portées pour la féminité, l\'ancrage et la confiance en soi.',
+    accent: 'var(--color-brand)',
+    image: `${basePath}images/home/atelier-baya.png`,
+    alt: 'Atelier Baya — perles traditionnelles de Masoda',
+  },
+  {
     tag: 'Créativité',
     title: 'Paint & Jam',
-    description: 'Peinture intuitive sur fond de musique, dans une ambiance conviviale et libératrice.',
+    description: 'Peinture intuitive sur des sons afro, soul et jazz, dans une ambiance conviviale et libératrice.',
     accent: 'var(--color-accent)',
+    image: `${basePath}images/home/atelier-paint-jam.png`,
+    alt: 'Atelier Paint & Jam — peinture intuitive en musique',
   },
   {
     tag: 'Bien-être',
-    title: 'Self-Care Rituals',
-    description: 'Rituels de soin inspirés des traditions afro-caribéennes, pour un moment de douceur.',
+    title: 'Afro-diététique & plantes',
+    description: 'Plantes africaines, tisanes et rituels doux pour renouer avec une nutrition ancrée et ancestrale.',
     accent: 'var(--color-coral)',
-  },
-  {
-    tag: 'Communauté',
-    title: 'Ateliers sur mesure',
-    description: 'Événements privés, team building ou anniversaires : une expérience Masoda à votre image.',
-    accent: 'var(--color-brand)',
+    image: `${basePath}images/home/bien-etre-lifestyle.png`,
+    alt: 'Atelier afro-diététique — plantes africaines, tisanes et bien-être',
   },
 ];
 ---
@@ -29,15 +37,22 @@ const ateliers = [
   <div class="container">
     <div class="ateliers-section__header reveal">
       <span class="overline">Nos ateliers</span>
-      <h2 class="heading-2">Des expériences qui font du bien</h2>
-      <p class="subtitle">Chaque atelier est un moment de partage, de création et de reconnexion à soi.</p>
+      <h2 class="heading-2">Trois expériences pour se retrouver</h2>
+      <p class="subtitle">Trois univers — artisanat, créativité, bien-être — pensés comme des moments de partage et de reconnexion à soi.</p>
     </div>
 
     <div class="ateliers-section__grid">
       {ateliers.map((atelier, i) => (
         <article class={`card reveal reveal-delay-${i + 1}`}>
-          <div class="card__image" style={`background: linear-gradient(135deg, ${atelier.accent}22, ${atelier.accent}08);`}>
-            <span class="ateliers-section__icon" style={`color: ${atelier.accent};`}>✦</span>
+          <div class="ateliers-section__image-wrap" style={`background: linear-gradient(135deg, ${atelier.accent}22, ${atelier.accent}08);`}>
+            <img
+              src={atelier.image}
+              alt={atelier.alt}
+              class="ateliers-section__image"
+              loading="lazy"
+              width="800"
+              height="600"
+            />
           </div>
           <div class="card__body">
             <span class="card__tag" style={`color: ${atelier.accent};`}>{atelier.tag}</span>
@@ -49,7 +64,7 @@ const ateliers = [
     </div>
 
     <div class="ateliers-section__cta reveal">
-      <a href="https://www.billetweb.fr/paint-and-jam-with-love" target="_blank" rel="noopener" class="btn btn--primary">
+      <a href={RESERVATION_URL} target="_blank" rel="noopener" class="btn btn--primary">
         Réserver un atelier
       </a>
       <a href={getNavHref('ateliers', base)} class="btn btn--ghost">
@@ -90,19 +105,23 @@ const ateliers = [
     gap: var(--space-8);
   }
 
-  .ateliers-section__icon {
-    font-size: var(--text-4xl);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .ateliers-section__image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
   }
 
-  .card__image {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .ateliers-section__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .card:hover .ateliers-section__image {
+    transform: scale(1.03);
   }
 
   .ateliers-section__cta {

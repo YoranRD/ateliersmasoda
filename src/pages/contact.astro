@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getNavHref } from '../utils/nav';
+
+const base = import.meta.env.BASE_URL;
+const legalHref = getNavHref('mentions-legales', base);
 ---
 
 <BaseLayout title="Contact — Les Ateliers Masoda" description="Contactez Les Ateliers Masoda pour toute question, collaboration ou événement sur mesure.">
@@ -9,7 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="page-hero__content reveal">
         <span class="overline">Contact</span>
         <h1 class="heading-1">Parlons ensemble</h1>
-        <p class="subtitle">Une question, une idée de collaboration ou envie d'un atelier sur mesure ? Écrivez-nous.</p>
+        <p class="subtitle">Une question, une idée de collaboration, un atelier privé ou simplement envie d'échanger ? Nous lisons chaque message.</p>
       </div>
     </div>
   </section>
@@ -19,13 +23,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <!-- Contact info -->
       <div class="contact-info reveal">
         <div class="contact-info__block">
-          <h2 class="heading-4">Collaborations</h2>
-          <p>Marques, créateurs, espaces : si nos univers se rejoignent, construisons quelque chose ensemble.</p>
+          <h2 class="heading-4">Collaborations & lieux</h2>
+          <p>Marques, créatrices, lieux d'accueil : si nos univers se rejoignent, construisons quelque chose ensemble. Nous sommes aussi ouvertes aux propositions de nouveaux lieux pour accueillir des formats spécifiques.</p>
         </div>
 
         <div class="contact-info__block">
-          <h2 class="heading-4">Événements privés</h2>
-          <p>Anniversaires, EVJF, team building : créez une expérience Masoda à votre image.</p>
+          <h2 class="heading-4">Ateliers privés & sur mesure</h2>
+          <p>Anniversaires, EVJF, team building, associations : nous concevons une expérience Masoda à l'image de votre groupe.</p>
         </div>
 
         <div class="contact-info__block">
@@ -35,12 +39,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <li><a href="https://www.tiktok.com/@lesateliersmassoda1" target="_blank" rel="noopener">TikTok</a></li>
             <li><a href="https://fr.pinterest.com/barbandchill/" target="_blank" rel="noopener">Pinterest</a></li>
           </ul>
+          <p class="contact-info__email">
+            Ou écrivez directement à <a href="mailto:yoranrd@gmail.com">yoranrd@gmail.com</a>
+          </p>
         </div>
       </div>
 
-      <!-- Contact form -->
       <div class="contact-form-wrap reveal reveal-delay-1">
-        <form class="contact-form" name="contact" data-netlify="true" action="#">
+        <form
+          class="contact-form"
+          id="contact-form"
+          name="contact"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+        >
+          <input type="hidden" name="access_key" value="519f48fd-824e-4443-81f1-f78653fbcfce" />
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="contact-form__botcheck" />
           <div class="contact-form__group">
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" placeholder="Votre nom" required />
@@ -64,11 +78,90 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
           </div>
           <button type="submit" class="btn btn--primary contact-form__submit">Envoyer</button>
+          <p
+            id="contact-form-status"
+            class="contact-form__status"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+          ></p>
+          <p class="contact-form__privacy">
+            Vos messages sont transmis via le service <a href="https://web3forms.com/" target="_blank" rel="noopener">Web3Forms</a>. Les informations envoyées servent uniquement à vous répondre. Plus de détails dans nos <a href={legalHref}>mentions légales</a>.
+          </p>
         </form>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('contact-form-status');
+
+  if (form instanceof HTMLFormElement && status instanceof HTMLParagraphElement) {
+    const submitButton = form.querySelector('.contact-form__submit');
+    const subjectField = form.querySelector('#subject');
+    const initialButtonText =
+      submitButton instanceof HTMLButtonElement ? submitButton.textContent : 'Envoyer';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!(submitButton instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const formData = new FormData(form);
+      const subjectLabel =
+        subjectField instanceof HTMLSelectElement
+          ? subjectField.options[subjectField.selectedIndex]?.text || subjectField.value
+          : 'Contact';
+      const payload = Object.fromEntries(formData.entries());
+
+      payload.subject = `Contact Les Ateliers Masoda — ${subjectLabel}`;
+      payload.sujet_selectionne = subjectLabel;
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+      status.hidden = false;
+      status.dataset.state = 'pending';
+      status.textContent = 'Envoi en cours...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          status.dataset.state = 'success';
+          status.textContent =
+            result.message || 'Merci, votre message est bien arrivé. Nous revenons vers vous très vite.';
+          form.reset();
+        } else {
+          status.dataset.state = 'error';
+          status.textContent =
+            result.message || "L'envoi n'a pas pu aboutir. Merci de réessayer ou de nous écrire à yoranrd@gmail.com.";
+        }
+      } catch (error) {
+        console.error(error);
+        status.dataset.state = 'error';
+        status.textContent =
+          "Connexion interrompue. Merci de réessayer ou de nous écrire à yoranrd@gmail.com.";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = initialButtonText || 'Envoyer';
+      }
+    });
+  }
+</script>
 
 <style>
   .page-hero {
@@ -128,7 +221,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--color-accent-hover);
   }
 
-  /* Form */
+  .contact-info__email {
+    margin-top: var(--space-4);
+  }
+
+  .contact-info__email a {
+    color: var(--color-accent);
+    font-weight: var(--weight-semibold);
+  }
+
   .contact-form-wrap {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
@@ -180,9 +281,52 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     min-height: 120px;
   }
 
+  .contact-form__botcheck {
+    display: none;
+  }
+
   .contact-form__submit {
     align-self: flex-start;
     margin-top: var(--space-2);
+  }
+
+  .contact-form__submit:disabled {
+    opacity: 0.8;
+    cursor: wait;
+  }
+
+  .contact-form__status {
+    min-height: 1.5rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .contact-form__status[data-state='pending'] {
+    color: var(--color-text-light);
+  }
+
+  .contact-form__status[data-state='success'] {
+    color: var(--color-brand);
+  }
+
+  .contact-form__status[data-state='error'] {
+    color: var(--color-warm);
+  }
+
+  .contact-form__privacy {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  .contact-form__privacy a {
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+  }
+
+  .contact-form__privacy a:hover {
+    color: var(--color-accent-hover);
   }
 
   @media (min-width: 768px) {

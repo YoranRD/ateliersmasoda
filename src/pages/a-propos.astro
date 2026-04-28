@@ -1,8 +1,12 @@
 ---
 import { getNavHref } from '../utils/nav';
+import { RESERVATION_URL } from '../utils/links';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
+const basePath = base.endsWith('/') ? base : `${base}/`;
+const masodaImage = `${basePath}images/about/masoda-cest-quoi.png`;
+const founderImage = `${basePath}images/about/fondatrice-masoda.png`;
 ---
 
 <BaseLayout title="À propos — Les Ateliers Masoda" description="Découvrez l'histoire, les valeurs et l'univers de Masoda. Créativité, bien-être et culture afro-caribéenne.">
@@ -23,7 +27,14 @@ const base = import.meta.env.BASE_URL;
     <div class="container about-story">
       <div class="about-story__visual reveal">
         <div class="about-story__frame">
-          <span class="about-story__placeholder">◯</span>
+          <img
+            src={masodaImage}
+            alt="L'univers Masoda — créativité, bien-être et culture afro-caribéenne"
+            class="about-story__img"
+            loading="lazy"
+            width="800"
+            height="800"
+          />
         </div>
       </div>
       <div class="about-story__content reveal reveal-delay-1">
@@ -38,6 +49,33 @@ const base = import.meta.env.BASE_URL;
           à ses racines. Que ce soit à travers la peinture, les rituels de soin ou simplement
           un moment de partage autour d'une tisane, chaque atelier est pensé pour faire du bien.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder -->
+  <section class="section about-founder-section">
+    <div class="container about-founder">
+      <div class="about-founder__content reveal">
+        <span class="overline">La fondatrice</span>
+        <h2 class="heading-3">Une vision portée par une voix sincère.</h2>
+        <p>
+          Masoda est née de l'envie de sa fondatrice de créer un espace où l'on prend soin
+          de soi sans masque, sans performance. Un projet qui réunit créativité,
+          bien-être et héritage afro-caribéen avec exigence et chaleur.
+        </p>
+      </div>
+      <div class="about-founder__visual reveal reveal-delay-1">
+        <div class="about-founder__frame">
+          <img
+            src={founderImage}
+            alt="La fondatrice des Ateliers Masoda"
+            class="about-founder__img"
+            loading="lazy"
+            width="800"
+            height="1066"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -83,7 +121,7 @@ const base = import.meta.env.BASE_URL;
           peut rayonner à sa manière.
         </p>
         <div class="vision-block__actions">
-          <a href="https://www.billetweb.fr/paint-and-jam-with-love" target="_blank" rel="noopener" class="btn btn--primary">Réserver un atelier</a>
+          <a href={RESERVATION_URL} target="_blank" rel="noopener" class="btn btn--primary">Réserver un atelier</a>
           <a href={getNavHref('contact', base)} class="btn btn--outline">Nous contacter</a>
         </div>
       </div>
@@ -122,18 +160,16 @@ const base = import.meta.env.BASE_URL;
     max-width: 400px;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius-xl);
-    background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-warm));
+    overflow: hidden;
     border: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-inline: auto;
   }
 
-  .about-story__placeholder {
-    font-size: 4rem;
-    color: var(--color-accent);
-    opacity: 0.3;
+  .about-story__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .about-story__content h2 {
@@ -144,6 +180,50 @@ const base = import.meta.env.BASE_URL;
     color: var(--color-text-light);
     line-height: var(--leading-relaxed);
     margin-bottom: var(--space-5);
+  }
+
+  /* Founder */
+  .about-founder-section {
+    background: var(--color-bg-warm);
+  }
+
+  .about-founder {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .about-founder__content .overline {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .about-founder__content h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .about-founder__content p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+  }
+
+  .about-founder__frame {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    margin-inline: auto;
+  }
+
+  .about-founder__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* Values */
@@ -218,6 +298,11 @@ const base = import.meta.env.BASE_URL;
 
     .about-story {
       grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-16);
+    }
+
+    .about-founder {
+      grid-template-columns: 1.1fr 0.9fr;
       gap: var(--space-16);
     }
 
