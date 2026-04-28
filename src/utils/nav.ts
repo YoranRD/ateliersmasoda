@@ -8,7 +8,7 @@ export function getNavHref(path: string, base: string): string {
   }
 
   // For other paths: baseNormalized + path + /
-  // Example: "/ateliersmasoda/" + "ateliers" + "/" → "/ateliersmasoda/ateliers/"
+  // Example: "/ateliersmassoda/" + "ateliers" + "/" → "/ateliersmassoda/ateliers/"
   return `${baseNormalized}${path}/`;
 }
 

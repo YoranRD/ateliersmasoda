@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Les Ateliers Masoda — Ateliers créatifs, bien-être et lifestyle afro-caribéen.',
+  description = 'Les Ateliers Massoda — Ateliers créatifs, bien-être et lifestyle afro-caribéen.',
   ogImage,
 } = Astro.props;
 
@@ -29,7 +29,7 @@ const absoluteOgImage = ogImagePath.startsWith('http')
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Les Ateliers Masoda',
+  name: 'Les Ateliers Massoda',
   url: `${siteOrigin}${basePath}`,
   logo: `${siteOrigin}${basePath}brand/logo_halo.png`,
   sameAs: [
@@ -52,10 +52,10 @@ const organizationJsonLd = {
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL} />
-  <meta property="og:site_name" content="Les Ateliers Masoda" />
+  <meta property="og:site_name" content="Les Ateliers Massoda" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:image" content={absoluteOgImage} />
-  <meta property="og:image:alt" content="Les Ateliers Masoda — visuel de marque" />
+  <meta property="og:image:alt" content="Les Ateliers Massoda — visuel de marque" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
@@ -71,7 +71,7 @@ const organizationJsonLd = {
     To enable later, drop in a privacy-friendly provider snippet here.
     Recommended options: Plausible, Umami, or Cloudflare Web Analytics.
     Example (Plausible):
-    <script defer data-domain="yoranrd.github.io/ateliersmasoda" src="https://plausible.io/js/script.js"></script>
+    <script defer data-domain="yoranrd.github.io/ateliersmassoda" src="https://plausible.io/js/script.js"></script>
   */}
 </head>
 <body>

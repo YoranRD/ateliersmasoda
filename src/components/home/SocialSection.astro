@@ -4,9 +4,9 @@ const basePath = base.endsWith('/') ? base : `${base}/`;
 const communityImage = `${basePath}images/home/communaute-masoda.png`;
 
 const socials = [
-  { name: 'Instagram', url: 'https://www.instagram.com/lesateliersmassoda/', handle: '@lesateliersmassoda', icon: '◉' },
-  { name: 'TikTok', url: 'https://www.tiktok.com/@lesateliersmassoda1', handle: '@lesateliersmassoda1', icon: '▶' },
-  { name: 'Pinterest', url: 'https://fr.pinterest.com/barbandchill/', handle: 'barbandchill', icon: '◎' },
+  { name: 'Instagram', url: 'https://www.instagram.com/lesateliersmassoda/', handle: '@lesateliersmassoda', icon: `${basePath}icons/social/instagram.svg` },
+  { name: 'TikTok', url: 'https://www.tiktok.com/@lesateliersmassoda1', handle: '@lesateliersmassoda1', icon: `${basePath}icons/social/tiktok.svg` },
+  { name: 'Pinterest', url: 'https://fr.pinterest.com/barbandchill/', handle: 'barbandchill', icon: `${basePath}icons/social/pinterest.svg` },
 ];
 ---
 
@@ -16,7 +16,7 @@ const socials = [
       <div class="social__image-frame">
         <img
           src={communityImage}
-          alt="La communauté Masoda — moments de partage et de complicité"
+          alt="La communauté Massoda — moments de partage et de complicité"
           class="social__image"
           loading="lazy"
           width="800"
@@ -27,18 +27,20 @@ const socials = [
 
     <div class="social__inner reveal reveal-delay-1">
       <span class="overline">Communauté</span>
-      <h2 class="heading-3">Rejoignez l'univers Masoda</h2>
+      <h2 class="heading-3">Rejoignez l'univers Massoda</h2>
       <p class="subtitle">Coulisses d'ateliers, inspirations et rendez-vous à venir : suivez-nous et faites partie de la communauté.</p>
 
       <div class="social__links">
         {socials.map(social => (
-          <a href={social.url} target="_blank" rel="noopener" class="social__card">
-            <span class="social__icon">{social.icon}</span>
+          <a href={social.url} target="_blank" rel="noopener" class="social__card" aria-label={`${social.name} — ${social.handle}`}>
+            <span class="social__icon">
+              <img src={social.icon} alt="" width="24" height="24" loading="lazy" aria-hidden="true" />
+            </span>
             <div class="social__info">
               <strong>{social.name}</strong>
               <span>{social.handle}</span>
             </div>
-            <span class="social__arrow">→</span>
+            <span class="social__arrow" aria-hidden="true">→</span>
           </a>
         ))}
       </div>
@@ -129,7 +131,6 @@ const socials = [
   }
 
   .social__icon {
-    font-size: var(--text-2xl);
     color: var(--color-accent);
     flex-shrink: 0;
     width: 48px;
@@ -137,8 +138,19 @@ const socials = [
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 155, 84, 0.1);
+    background: rgba(255, 155, 84, 0.12);
     border-radius: var(--radius-md);
+    transition: background var(--duration-normal) var(--ease-out);
+  }
+
+  .social__icon img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .social__card:hover .social__icon {
+    background: rgba(255, 155, 84, 0.2);
   }
 
   .social__info {

@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://yoranrd.github.io',
-  base: '/ateliersmasoda',
+  base: '/ateliersmassoda',
   output: 'static',
   integrations: [sitemap()],
 });

@@ -1,11 +1,11 @@
 /* ============================================
-   MASODA — Design Tokens
-   Palette: Masoda Core 01 + extensions
+   MASSODA — Design Tokens
+   Palette: Massoda Core 01 + extensions
    Typography: DM Serif Display + Manrope
    ============================================ */
 
 :root {
-  /* --- Colors: Masoda Core 01 --- */
+  /* --- Colors: Massoda Core 01 --- */
   --color-bg:          #F6EFE7;
   --color-bg-light:    #FFF6EE;
   --color-bg-warm:     #F4ECE2;

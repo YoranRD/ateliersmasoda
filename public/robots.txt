@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yoranrd.github.io/ateliersmasoda/sitemap-index.xml
+Sitemap: https://yoranrd.github.io/ateliersmassoda/sitemap-index.xml
